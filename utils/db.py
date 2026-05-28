@@ -7,13 +7,14 @@ load_dotenv()
 
 def get_connection():
     return pymysql.connect(
-        host=os.getenv("DB_HOST", "localhost"),
+        host=os.getenv("DB_HOST"),
         port=int(os.getenv("DB_PORT", 3306)),
-        database=os.getenv("DB_NAME", "cine_db"),
-        user=os.getenv("DB_USER", "root"),
-        password=os.getenv("DB_PASSWORD", ""),
+        database=os.getenv("DB_NAME"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
         charset="utf8mb4",
         cursorclass=pymysql.cursors.DictCursor,
+        ssl={"ssl": True},
     )
 
 def query(sql: str, params: tuple = ()) -> list[dict]:
