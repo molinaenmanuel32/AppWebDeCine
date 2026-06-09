@@ -22,6 +22,104 @@ def nav_link(label: str, href: str) -> rx.Component:
     )
 
 
+def branch_selector() -> rx.Component:
+    """Selector de sucursal — visible en desktop y mobile."""
+    return rx.menu.root(
+        rx.menu.trigger(
+            rx.hstack(
+                rx.icon("map-pin", size=14, color=GOLD_VIP),
+                rx.text(
+                    AppState.selected_branch,
+                    color=GOLD_VIP,
+                    font_size="13px",
+                    font_weight="600",
+                    max_width="120px",
+                    overflow="hidden",
+                    text_overflow="ellipsis",
+                    white_space="nowrap",
+                ),
+                rx.icon("chevron-down", size=12, color=GOLD_VIP),
+                spacing="1",
+                align="center",
+                cursor="pointer",
+                padding="6px 10px",
+                border_radius="8px",
+                border=f"1px solid rgba(212,175,55,0.3)",
+                background="rgba(212,175,55,0.06)",
+                transition="all 0.2s ease",
+                _hover={"background": "rgba(212,175,55,0.12)", "border_color": GOLD_VIP},
+            )
+        ),
+        rx.menu.content(
+            rx.text(
+                "SELECCIONAR SUCURSAL",
+                color=GRAY_MUTED,
+                font_size="10px",
+                font_weight="700",
+                letter_spacing="2px",
+                padding="8px 12px 4px",
+            ),
+            rx.menu.item(
+                rx.hstack(
+                    rx.icon("map-pin", size=13),
+                    rx.text("Downtown Center"),
+                    rx.cond(AppState.selected_branch == "Downtown Center",
+                            rx.icon("check", size=13, color=GOLD_VIP),
+                            rx.box()),
+                    spacing="2", align="center", justify="between", width="100%",
+                ),
+                on_click=AppState.set_branch("Downtown Center"),
+                color=rx.cond(AppState.selected_branch == "Downtown Center", GOLD_VIP, WHITE_SOFT),
+                font_weight=rx.cond(AppState.selected_branch == "Downtown Center", "600", "400"),
+            ),
+            rx.menu.item(
+                rx.hstack(
+                    rx.icon("map-pin", size=13),
+                    rx.text("Agora Mall"),
+                    rx.cond(AppState.selected_branch == "Agora Mall",
+                            rx.icon("check", size=13, color=GOLD_VIP),
+                            rx.box()),
+                    spacing="2", align="center", justify="between", width="100%",
+                ),
+                on_click=AppState.set_branch("Agora Mall"),
+                color=rx.cond(AppState.selected_branch == "Agora Mall", GOLD_VIP, WHITE_SOFT),
+                font_weight=rx.cond(AppState.selected_branch == "Agora Mall", "600", "400"),
+            ),
+            rx.menu.item(
+                rx.hstack(
+                    rx.icon("map-pin", size=13),
+                    rx.text("Galeria 360"),
+                    rx.cond(AppState.selected_branch == "Galeria 360",
+                            rx.icon("check", size=13, color=GOLD_VIP),
+                            rx.box()),
+                    spacing="2", align="center", justify="between", width="100%",
+                ),
+                on_click=AppState.set_branch("Galeria 360"),
+                color=rx.cond(AppState.selected_branch == "Galeria 360", GOLD_VIP, WHITE_SOFT),
+                font_weight=rx.cond(AppState.selected_branch == "Galeria 360", "600", "400"),
+            ),
+            rx.menu.item(
+                rx.hstack(
+                    rx.icon("map-pin", size=13),
+                    rx.text("Bluemall"),
+                    rx.cond(AppState.selected_branch == "Bluemall",
+                            rx.icon("check", size=13, color=GOLD_VIP),
+                            rx.box()),
+                    spacing="2", align="center", justify="between", width="100%",
+                ),
+                on_click=AppState.set_branch("Bluemall"),
+                color=rx.cond(AppState.selected_branch == "Bluemall", GOLD_VIP, WHITE_SOFT),
+                font_weight=rx.cond(AppState.selected_branch == "Bluemall", "600", "400"),
+            ),
+            background="rgba(20,20,20,0.98)",
+            border="1px solid rgba(255,255,255,0.1)",
+            border_radius="10px",
+            min_width="200px",
+            padding="4px",
+        ),
+    )
+
+
 def navbar() -> rx.Component:
     return rx.box(
         rx.hstack(
@@ -42,6 +140,8 @@ def navbar() -> rx.Component:
                 nav_link("Cartelera", "/catalogo"),
                 nav_link("VIP", "/#vip"),
                 nav_link("Promociones", "/#promo"),
+                # Selector de sucursal
+                branch_selector(),
                 # "Mis Reservas" solo visible cuando está autenticado
                 rx.cond(
                     AppState.is_logged_in,
@@ -174,6 +274,13 @@ def navbar() -> rx.Component:
                     rx.link("Inicio", href="/", color=WHITE_SOFT, text_decoration="none", font_size="16px", padding="8px 0", width="100%"),
                     rx.link("Cartelera", href="/catalogo", color=WHITE_SOFT, text_decoration="none", font_size="16px", padding="8px 0", width="100%"),
                     rx.link("VIP", href="/#vip", color=WHITE_SOFT, text_decoration="none", font_size="16px", padding="8px 0", width="100%"),
+                    # Selector de sucursal móvil
+                    rx.vstack(
+                        rx.text("SUCURSAL", color=GRAY_MUTED, font_size="10px",
+                                font_weight="700", letter_spacing="2px", padding_top="8px"),
+                        branch_selector(),
+                        align_items="start", spacing="1", width="100%",
+                    ),
                     # Mis Reservas en móvil — solo autenticados
                     rx.cond(
                         AppState.is_logged_in,

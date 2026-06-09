@@ -669,7 +669,27 @@ def ticket_modal() -> rx.Component:
                             margin="0.25rem 0",
                         ),
 
-                        # Asientos
+                        # Sucursal
+                        rx.vstack(
+                            rx.text("SUCURSAL", color=GRAY_MUTED, font_size="10px",
+                                    font_weight="700", letter_spacing="3"),
+                            rx.hstack(
+                                rx.icon("map-pin", size=14, color=GOLD_VIP),
+                                rx.text(AppState.ticket_branch, color=GOLD_VIP,
+                                        font_size="15px", font_weight="700"),
+                                spacing="2",
+                                align="center",
+                            ),
+                            align_items="center", spacing="1",
+                        ),
+
+                        # Separador punteado
+                        rx.box(
+                            width="100%", height="1px",
+                            background="repeating-linear-gradient(90deg, rgba(255,255,255,0.2) 0, rgba(255,255,255,0.2) 8px, transparent 8px, transparent 16px)",
+                            margin="0.25rem 0",
+                        ),
+
                         rx.vstack(
                             rx.text("ASIENTOS", color=GRAY_MUTED, font_size="10px",
                                     font_weight="700", letter_spacing="3"),

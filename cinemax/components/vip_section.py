@@ -5,6 +5,7 @@ Sección exclusiva VIP con efectos premium.
 
 import reflex as rx
 from cinemax.pages.styles.theme import *
+from cinemax.states.app_state import AppState
 
 
 def vip_perk(icon: str, title: str, desc: str) -> rx.Component:
@@ -93,22 +94,24 @@ def vip_section() -> rx.Component:
                 rx.hstack(
                     rx.link(
                     ),
-                    rx.link(
-                        rx.button(
-                            "Ver películas VIP",
-                            background="transparent",
-                            color=GOLD_VIP,
-                            border=f"2px solid {GOLD_VIP}",
-                            border_radius="10px",
-                            padding="14px 32px",
-                            font_size="15px",
-                            font_weight="600",
-                            cursor="pointer",
-                            transition="all 0.2s ease",
-                            _hover={"background": "rgba(245,197,24,0.1)"},
+                    rx.button(
+                        rx.hstack(
+                            rx.icon("star", size=15, color=GOLD_VIP),
+                            rx.text("Ver películas VIP"),
+                            spacing="2",
+                            align="center",
                         ),
-                        href="/catalogo",
-                        text_decoration="none",
+                        on_click=AppState.go_to_vip_catalog,
+                        background="transparent",
+                        color=GOLD_VIP,
+                        border=f"2px solid {GOLD_VIP}",
+                        border_radius="10px",
+                        padding="14px 32px",
+                        font_size="15px",
+                        font_weight="600",
+                        cursor="pointer",
+                        transition="all 0.2s ease",
+                        _hover={"background": "rgba(245,197,24,0.1)", "transform": "translateY(-1px)"},
                     ),
                     spacing="4",
                     flex_wrap="wrap",

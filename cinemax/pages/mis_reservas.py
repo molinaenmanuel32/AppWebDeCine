@@ -301,6 +301,19 @@ def booking_card(booking: dict, index: int) -> rx.Component:
                 ),
                 rx.vstack(
                     rx.hstack(
+                        rx.icon("map-pin", size=13, color=GRAY_MUTED),
+                        rx.text("SUCURSAL", color=GRAY_MUTED, font_size="10px",
+                                font_weight="700", letter_spacing="1.5px"),
+                        spacing="1", align="center",
+                    ),
+                    rx.text(booking.get("branch", "—"),
+                            color=rx.cond(is_inactive, GRAY_MUTED, GOLD_VIP),
+                            font_size="14px", font_weight="600"),
+                    align_items="start", spacing="1",
+                    min_width="120px", flex="1",
+                ),
+                rx.vstack(
+                    rx.hstack(
                         rx.icon("users", size=13, color=GRAY_MUTED),
                         rx.text("BOLETOS", color=GRAY_MUTED, font_size="10px",
                                 font_weight="700", letter_spacing="1.5px"),
@@ -646,6 +659,24 @@ def mis_reservas_ticket_modal() -> rx.Component:
                                 align_items="center", spacing="1",
                             ),
                             columns="3", gap="1rem", width="100%",
+                        ),
+
+                        rx.box(width="100%", height="1px",
+                               background="repeating-linear-gradient(90deg, rgba(255,255,255,0.2) 0, rgba(255,255,255,0.2) 8px, transparent 8px, transparent 16px)",
+                               margin="0.25rem 0"),
+
+                        # Sucursal
+                        rx.vstack(
+                            rx.text("SUCURSAL", color=GRAY_MUTED, font_size="10px",
+                                    font_weight="700", letter_spacing="3"),
+                            rx.hstack(
+                                rx.icon("map-pin", size=14, color=GOLD_VIP),
+                                rx.text(AppState.ticket_branch, color=GOLD_VIP,
+                                        font_size="15px", font_weight="700"),
+                                spacing="2",
+                                align="center",
+                            ),
+                            align_items="center", spacing="1",
                         ),
 
                         rx.box(width="100%", height="1px",
